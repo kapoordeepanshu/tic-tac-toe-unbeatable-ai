@@ -2,9 +2,9 @@
 
 A free **Tic Tac Toe game** you can play in the browser or on your phone. Play against a friend on the same device, or challenge an **unbeatable AI powered by the minimax algorithm**. The web version is plain HTML, CSS and JavaScript with no build step and deploys to Vercel in one click. The **Flutter app** gives you the same game as an installable Android APK.
 
-**[⬇️ Download the Android app (APK)](https://github.com/kapoordeepanshu/tic-tac-toe-unbeatable-ai/releases/latest)**
+**[🎮 Play online now](https://tic-tac-toe-unbeatable-ai-one.vercel.app/)** · **[⬇️ Download the Android app (APK)](https://github.com/kapoordeepanshu/tic-tac-toe-unbeatable-ai/releases/latest)**
 
-![Tic Tac Toe game with claymorphism design, scoreboard and unbeatable AI](docs/screenshot.png)
+[![Tic Tac Toe game with claymorphism design, scoreboard and unbeatable AI](docs/screenshot.png)](https://tic-tac-toe-unbeatable-ai-one.vercel.app/)
 
 ---
 
@@ -48,7 +48,9 @@ So the AI got an **Easy** mode, for my ego and for anyone who, like me, wants to
 
 ## Live demo
 
-Deploy your own copy in under a minute (see [Deploy to Vercel](#deploy-to-vercel)).
+👉 **[tic-tac-toe-unbeatable-ai-one.vercel.app](https://tic-tac-toe-unbeatable-ai-one.vercel.app/)**
+
+It's free, with no sign-up and no download, and works on desktop, tablet and phone. Want your own copy? See [Deploy to Vercel](#deploy-to-vercel).
 
 ## Flutter mobile app
 
@@ -81,7 +83,8 @@ See `minimax()` in [`script.js`](script.js).
 | Styling | CSS3 (custom properties, grid, `color-mix`, keyframe animations) |
 | Logic   | Vanilla JavaScript (ES2020, no dependencies) |
 | Fonts   | [Fredoka](https://fonts.google.com/specimen/Fredoka) + [Nunito](https://fonts.google.com/specimen/Nunito) |
-| Hosting | [Vercel](https://vercel.com) (static) |
+| Hosting | [Vercel](https://vercel.com) (static), live at [tic-tac-toe-unbeatable-ai-one.vercel.app](https://tic-tac-toe-unbeatable-ai-one.vercel.app/) |
+| SEO     | Meta + Open Graph + Twitter cards, JSON-LD structured data, sitemap |
 | Mobile  | [Flutter](https://flutter.dev) (Dart), APK built with GitHub Actions |
 
 ## Getting started
@@ -117,6 +120,9 @@ vercel --prod
 ├── style.css         # Claymorphism theme, layout, animations
 ├── script.js         # Game logic + minimax AI
 ├── favicon.svg       # X/O icon
+├── apple-touch-icon.png, site.webmanifest   # Home-screen icon & app manifest
+├── og-image.png      # Social share preview (1200×630)
+├── robots.txt, sitemap.xml                  # Search engine crawling
 ├── docs/
 │   ├── screenshot.png
 │   └── flutter-app.png

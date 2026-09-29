@@ -1,6 +1,6 @@
 # Tic Tac Toe: Flutter App
 
-The mobile version of the [Tic Tac Toe game with unbeatable AI](../README.md). It has the same minimax AI, claymorphism design, animated background and persistent scoreboard as the web version.
+The mobile version of the [Tic Tac Toe game with unbeatable AI](../README.md). Prefer the browser? [Play online](https://tic-tac-toe-unbeatable-ai-one.vercel.app/). It has the same minimax AI, claymorphism design, animated background and persistent scoreboard as the web version.
 
 ## Download (Android)
 

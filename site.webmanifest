@@ -1,0 +1,13 @@
+{
+  "name": "Tic Tac Toe – Unbeatable AI",
+  "short_name": "Tic Tac Toe",
+  "description": "Free Tic Tac Toe with an unbeatable AI, Easy mode and 2-player mode.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf2f8",
+  "theme_color": "#ec4899",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tic-tac-toe-unbeatable-ai-one.vercel.app/sitemap.xml
