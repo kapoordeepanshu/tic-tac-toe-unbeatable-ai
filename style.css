@@ -1,0 +1,408 @@
+/* Design system: Claymorphism · Fredoka / Nunito · pink + violet + reward gold
+   (generated with the ui-ux-pro-max design pack) */
+
+:root {
+  --color-primary: #ec4899;      /* X */
+  --color-secondary: #8b5cf6;    /* O */
+  --color-accent: #f59e0b;       /* wins / reward */
+  --color-on-primary: #ffffff;
+  --color-background: #fdf2f8;
+  --color-surface: #ffffff;
+  --color-foreground: #0f172a;
+  --color-muted-fg: #64748b;
+  --color-border: #fbcfe8;
+  --color-ring: #ec4899;
+  --color-win-bg: #fef3c7;
+  --color-win-text: #b45309;
+
+  --radius-sm: 16px;
+  --radius-lg: 24px;
+  --border-w: 3px;
+
+  /* Clay = soft outer drop + inner highlight/shade */
+  --clay: 0 8px 20px rgba(236, 72, 153, 0.14),
+          inset 0 -4px 0 rgba(15, 23, 42, 0.06),
+          inset 0 3px 0 rgba(255, 255, 255, 0.9);
+  --clay-pressed: 0 3px 8px rgba(236, 72, 153, 0.14),
+                  inset 0 3px 6px rgba(15, 23, 42, 0.08);
+
+  --ease: cubic-bezier(0.34, 1.56, 0.64, 1); /* soft overshoot */
+  --dur: 200ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #f472b6;
+    --color-secondary: #a78bfa;
+    --color-accent: #fbbf24;
+    --color-on-primary: #1e1b2e;
+    --color-background: #1a1625;
+    --color-surface: #272238;
+    --color-foreground: #f5f3ff;
+    --color-muted-fg: #a8a3bd;
+    --color-border: #3b3354;
+    --color-ring: #f472b6;
+    --color-win-bg: #4a3a17;
+    --color-win-text: #fbbf24;
+    --clay: 0 8px 20px rgba(0, 0, 0, 0.35),
+            inset 0 -4px 0 rgba(0, 0, 0, 0.25),
+            inset 0 3px 0 rgba(255, 255, 255, 0.06);
+    --clay-pressed: 0 3px 8px rgba(0, 0, 0, 0.35),
+                    inset 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: "Nunito", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ---------- Layout ----------
+   Phone: one column, board shrinks with screen height so nothing scrolls.
+   Wider screens: info panel on the left, board on the right. */
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+
+h1 {
+  margin: 0;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  line-height: 1.1;
+}
+h1 .t-x { color: var(--color-primary); }
+h1 .t-o { color: var(--color-secondary); }
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible {
+  outline: 3px solid var(--color-ring);
+  outline-offset: 3px;
+}
+
+/* ---------- Segmented toggles ---------- */
+.controls { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; }
+
+.segmented {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: var(--clay);
+}
+
+.seg {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-muted-fg);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 500;
+  transition: background var(--dur) ease-out, color var(--dur) ease-out, transform var(--dur) var(--ease);
+}
+.seg:hover { color: var(--color-foreground); }
+.seg:active { transform: scale(0.96); }
+.seg.active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12);
+}
+.difficulty .seg.active { background: var(--color-secondary); }
+
+.hidden { display: none; }
+
+/* ---------- Scoreboard ---------- */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 8px;
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--clay);
+  transition: border-color var(--dur) ease-out, transform var(--dur) var(--ease);
+}
+.score .label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-muted-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.score .value {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.score.x .value { color: var(--color-primary); }
+.score.o .value { color: var(--color-secondary); }
+.score.draw .value { color: var(--color-muted-fg); }
+
+/* Highlight whose turn it is (text in the status line carries the meaning too) */
+.score.x.turn { border-color: var(--color-primary); transform: translateY(-2px); }
+.score.o.turn { border-color: var(--color-secondary); transform: translateY(-2px); }
+
+/* ---------- Status ---------- */
+.status {
+  margin: 0;
+  min-height: 1.5em;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  align-self: stretch;
+  padding-left: 4px;
+  text-align: left;
+}
+.status.win { color: var(--color-win-text); }
+
+/* ---------- Board ---------- */
+.board {
+  display: grid;
+  /* minmax(0, …) stops a cell's content from resizing its row/column */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  /* shrink with viewport height so the page never needs to scroll */
+  width: min(100%, max(240px, calc(100dvh - 420px)));
+  aspect-ratio: 1;
+  padding: 12px;
+  background: var(--color-surface);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--clay);
+}
+
+.cell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  background: var(--color-background);
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--clay);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) ease-out, background var(--dur) ease-out;
+}
+.cell:not(:disabled):hover { transform: translateY(-2px); }
+.cell:not(:disabled):active { transform: translateY(1px); box-shadow: var(--clay-pressed); }
+.cell:disabled { cursor: default; }
+.cell.filled { box-shadow: var(--clay-pressed); }
+.cell.win {
+  background: var(--color-win-bg);
+  border-color: var(--color-accent);
+  animation: bounce 450ms var(--ease);
+}
+
+/* Positioned absolutely so the mark never affects the cell's size */
+.mark {
+  position: absolute;
+  inset: 18%;
+  width: 64%;
+  height: 64%;
+  overflow: visible;
+}
+.mark path, .mark circle {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 260ms ease-out forwards;
+}
+.mark-x path { stroke: var(--color-primary); }
+.mark-x path + path { animation-delay: 120ms; }
+.mark-o circle { stroke: var(--color-secondary); }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Actions ---------- */
+.actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+.btn {
+  min-height: 48px;
+  padding: 0 22px;
+  border: var(--border-w) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--clay);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) ease-out;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px); box-shadow: var(--clay-pressed); }
+.btn.primary {
+  background: var(--color-primary);
+  border-color: color-mix(in srgb, var(--color-primary) 80%, #000);
+  color: var(--color-on-primary);
+}
+
+/* ---------- Wide screens ---------- */
+@media (min-width: 760px) {
+  .app {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 300px auto;
+    /* the 1fr spacer rows vertically centre the panel beside the board */
+    grid-template-rows: 1fr repeat(5, auto) 1fr;
+    grid-template-areas:
+      ".        board"
+      "title    board"
+      "status   board"
+      "controls board"
+      "scores   board"
+      "actions  board"
+      ".        board";
+    column-gap: 48px;
+    row-gap: 18px;
+    justify-content: center;
+    align-items: start;
+  }
+  h1 { grid-area: title; }
+  .status { grid-area: status; font-size: 1.6rem; }
+  .controls { grid-area: controls; align-items: flex-start; }
+  .scoreboard { grid-area: scores; }
+  .actions { grid-area: actions; justify-content: flex-start; }
+  .board {
+    grid-area: board;
+    align-self: center;
+    width: min(560px, calc(100dvh - 64px), calc(100vw - 32px - 348px));
+  }
+}
+
+/* ---------- Turn cursor ----------
+   Pointer becomes the current player's mark (set via body[data-turn] in script.js).
+   White under-stroke keeps it visible on any background; hotspot is the centre. */
+:root {
+  --cursor-x: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M9 9L23 23M23 9L9 23' stroke='white' stroke-width='8' stroke-linecap='round'/><path d='M9 9L23 23M23 9L9 23' stroke='%23ec4899' stroke-width='4.5' stroke-linecap='round'/></svg>") 16 16;
+  --cursor-o: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='8.5' fill='none' stroke='white' stroke-width='8'/><circle cx='16' cy='16' r='8.5' fill='none' stroke='%238b5cf6' stroke-width='4.5'/></svg>") 16 16;
+}
+body[data-turn="x"],
+body[data-turn="x"] button:not(:disabled) { cursor: var(--cursor-x), pointer; }
+body[data-turn="o"],
+body[data-turn="o"] button:not(:disabled) { cursor: var(--cursor-o), pointer; }
+
+/* ---------- Animated background ----------
+   Drifting colour blobs + slowly rising X/O shapes. Transform-only so it stays on the GPU. */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  width: 45vmax;
+  height: 45vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  animation: drift 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.b1 { background: var(--color-primary); top: -15vmax; left: -10vmax; }
+.b2 { background: var(--color-secondary); bottom: -15vmax; right: -10vmax; animation-duration: 24s; animation-delay: -8s; }
+.b3 { background: var(--color-accent); top: 35%; left: 35%; width: 30vmax; height: 30vmax; opacity: 0.2; animation-duration: 28s; animation-delay: -4s; }
+
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(10vmax, 6vmax) scale(1.12); }
+  100% { transform: translate(-6vmax, 12vmax) scale(0.94); }
+}
+
+.shape {
+  position: absolute;
+  bottom: -100px;
+  width: var(--size, 48px);
+  height: var(--size, 48px);
+  opacity: 0.16;
+  animation: rise var(--dur-rise, 26s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+.shape.o { border: calc(var(--size, 48px) / 6) solid var(--color-secondary); border-radius: 50%; }
+.shape.x::before,
+.shape.x::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(var(--size, 48px) / 6);
+  height: 100%;
+  margin-left: calc(var(--size, 48px) / -12);
+  border-radius: 999px;
+  background: var(--color-primary);
+  transform: rotate(45deg);
+}
+.shape.x::after { transform: rotate(-45deg); }
+
+/* negative delays so shapes are already mid-flight on page load */
+.s1 { left: 6%;  --size: 56px; --dur-rise: 28s; --delay: -4s; }
+.s2 { left: 22%; --size: 36px; --dur-rise: 22s; --delay: -14s; }
+.s3 { left: 44%; --size: 30px; --dur-rise: 30s; --delay: -22s; }
+.s4 { left: 64%; --size: 60px; --dur-rise: 26s; --delay: -9s; }
+.s5 { left: 80%; --size: 40px; --dur-rise: 24s; --delay: -18s; }
+.s6 { left: 92%; --size: 28px; --dur-rise: 32s; --delay: -2s; }
+
+@keyframes rise {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(calc(-100vh - 200px)) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+  /* keep the background still rather than flickering through 1ms loops */
+  .bg * { animation: none !important; }
+  .shape { display: none; }
+}

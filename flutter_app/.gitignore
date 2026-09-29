@@ -1,0 +1,17 @@
+# Platform folders are generated with `flutter create` (see README)
+android/
+ios/
+web/
+windows/
+macos/
+linux/
+.metadata
+
+# Build output & tooling
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+*.iml
+.idea/

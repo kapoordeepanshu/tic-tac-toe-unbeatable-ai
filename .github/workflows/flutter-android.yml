@@ -1,0 +1,64 @@
+name: Flutter Android APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "flutter_app/**"
+      - ".github/workflows/flutter-android.yml"
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: flutter_app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      # Platform folders aren't committed; generate them fresh from the Flutter template.
+      - name: Generate Android project
+        run: |
+          flutter create . --project-name tic_tac_toe --org com.kapoordeepanshu --platforms android
+          rm -f test/widget_test.dart
+          manifest=android/app/src/main/AndroidManifest.xml
+          sed -i 's/android:label="tic_tac_toe"/android:label="Tic Tac Toe"/' "$manifest"
+          # Release builds need INTERNET for Google Fonts
+          grep -q 'android.permission.INTERNET' "$manifest" || \
+            sed -i 's|<application|<uses-permission android:name="android.permission.INTERNET"/>\n    <application|' "$manifest"
+
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test
+
+      - name: Build APK
+        run: |
+          flutter build apk --release
+          mv build/app/outputs/flutter-apk/app-release.apk build/tic-tac-toe.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tic-tac-toe-apk
+          path: flutter_app/build/tic-tac-toe.apk
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: flutter_app/build/tic-tac-toe.apk
+          generate_release_notes: true

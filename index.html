@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tic Tac Toe</title>
+  <meta name="description" content="Play Tic Tac Toe against a friend or the computer." />
+  <meta name="theme-color" content="#fdf2f8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <span class="shape x s1"></span>
+    <span class="shape o s2"></span>
+    <span class="shape x s3"></span>
+    <span class="shape o s4"></span>
+    <span class="shape x s5"></span>
+    <span class="shape o s6"></span>
+  </div>
+
+  <main class="app">
+    <h1><span class="t-x">Tic</span> Tac <span class="t-o">Toe</span></h1>
+
+    <section class="controls" aria-label="Game settings">
+      <div class="segmented" role="radiogroup" aria-label="Mode">
+        <button type="button" class="seg active" data-mode="pvp" role="radio" aria-checked="true">2 Players</button>
+        <button type="button" class="seg" data-mode="cpu" role="radio" aria-checked="false">vs Computer</button>
+      </div>
+      <div class="segmented difficulty hidden" role="radiogroup" aria-label="Difficulty">
+        <button type="button" class="seg" data-level="easy" role="radio" aria-checked="false">Easy</button>
+        <button type="button" class="seg active" data-level="hard" role="radio" aria-checked="true">Unbeatable</button>
+      </div>
+    </section>
+
+    <p class="status" id="status" aria-live="polite">X's turn</p>
+
+    <section class="scoreboard" aria-label="Score">
+      <div class="score x"><span class="label" id="label-x">Player X</span><span class="value" id="score-x">0</span></div>
+      <div class="score draw"><span class="label">Draws</span><span class="value" id="score-draw">0</span></div>
+      <div class="score o"><span class="label" id="label-o">Player O</span><span class="value" id="score-o">0</span></div>
+    </section>
+
+    <div class="board" id="board" role="grid" aria-label="Tic Tac Toe board">
+      <button type="button" class="cell" data-index="0" aria-label="Cell 1"></button>
+      <button type="button" class="cell" data-index="1" aria-label="Cell 2"></button>
+      <button type="button" class="cell" data-index="2" aria-label="Cell 3"></button>
+      <button type="button" class="cell" data-index="3" aria-label="Cell 4"></button>
+      <button type="button" class="cell" data-index="4" aria-label="Cell 5"></button>
+      <button type="button" class="cell" data-index="5" aria-label="Cell 6"></button>
+      <button type="button" class="cell" data-index="6" aria-label="Cell 7"></button>
+      <button type="button" class="cell" data-index="7" aria-label="Cell 8"></button>
+      <button type="button" class="cell" data-index="8" aria-label="Cell 9"></button>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn primary" id="new-round">New Round</button>
+      <button type="button" class="btn" id="reset-score">Reset Score</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
