@@ -15,7 +15,7 @@ Tic Tac Toe is the "Hello, World!" of game AI. It's small enough to understand c
 This project was built to:
 
 - **Learn and demonstrate the minimax algorithm** in fewer than 30 lines of readable JavaScript
-- **Show that vanilla JS is enough**: no React, no bundler, just three files
+- **Show that vanilla JS is enough**: no React, no bundler, just one HTML, one CSS and one JavaScript file
 - **Practice modern UI design**: a soft, playful *claymorphism* look with dark mode and animations
 - **Make something people actually play** instead of another to-do app
 
@@ -36,12 +36,12 @@ So the AI got an **Easy** mode, for my ego and for anyone who, like me, wants to
 ## Features
 
 - 🎮 **Two game modes**: *2 Players* on one device, or *vs Computer*
-- 🤖 **Unbeatable AI** using minimax with depth scoring, so it wins fast and loses slowly (it never loses)
+- 🤖 **Unbeatable AI** using minimax with depth scoring: it never loses and always takes the fastest win
 - 😌 **Easy mode** for casual play (mostly random moves, occasionally smart)
-- 🏆 **Persistent scoreboard** saved in `localStorage`
+- 🏆 **Persistent scoreboard** saved on your device
 - 🔁 **Fair play**: the starting player alternates every round
 - ✨ **Animated UI**: X and O draw themselves, the winning line bounces, and the background drifts with floating X/O shapes
-- 🖱️ **Custom X / O mouse cursor** that shows whose turn it is
+- 🖱️ **Custom X / O mouse cursor** that shows whose turn it is (web)
 - 🌗 **Light and dark mode**, following your system theme
 - 📱 **Fully responsive**: side-by-side layout on desktop, stacked on mobile, no scrolling
 - ♿ **Accessible**: keyboard playable, screen-reader labels, visible focus, respects *reduced motion*
@@ -54,7 +54,7 @@ It's free, with no sign-up and no download, and works on desktop, tablet and pho
 
 ## Flutter mobile app
 
-I've added the **Flutter code** as well, so anyone can play on their phone, no browser needed. The [`flutter_app/`](flutter_app) folder has a native app with the same unbeatable AI, claymorphism design and animations as the web version. The design works on every screen size: small and large phones, landscape and tablets, in light and dark mode.
+I've added the **Flutter code** as well, so anyone with an Android phone can install the game and play it without a browser. The [`flutter_app/`](flutter_app) folder has a native app with the same unbeatable AI, claymorphism design and animations as the web version. The design works on every screen size: small and large phones, landscape and tablets, in light and dark mode.
 
 ![Tic Tac Toe Flutter app on Android phones in light mode, dark mode and landscape](docs/flutter-app.png)
 
@@ -81,7 +81,7 @@ See `minimax()` in [`script.js`](script.js).
 |---------|--------|
 | Markup  | Semantic HTML5 |
 | Styling | CSS3 (custom properties, grid, `color-mix`, keyframe animations) |
-| Logic   | Vanilla JavaScript (ES2020, no dependencies) |
+| Logic   | Vanilla JavaScript (no dependencies) |
 | Fonts   | [Fredoka](https://fonts.google.com/specimen/Fredoka) + [Nunito](https://fonts.google.com/specimen/Nunito) |
 | Hosting | [Vercel](https://vercel.com) (static), live at [tic-tac-toe-unbeatable-ai-one.vercel.app](https://tic-tac-toe-unbeatable-ai-one.vercel.app/) |
 | SEO     | Meta + Open Graph + Twitter cards, JSON-LD structured data, sitemap |
@@ -104,7 +104,7 @@ npx serve .
 
 **Option A: dashboard**
 1. Go to [vercel.com/new](https://vercel.com/new) and import this repository.
-2. Set Framework Preset to **Other**, leave the build command empty, and set the output directory to `./`.
+2. Keep the default settings: Framework Preset **Other**, with no build command and no output directory.
 3. Click **Deploy**.
 
 **Option B: CLI**
